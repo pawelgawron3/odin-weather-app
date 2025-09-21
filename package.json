@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack serve --mode development"
+    "start": "webpack serve --mode development",
+    "lint": "eslint \"src/*.js\"",
+    "format": "prettier --write \"src/**/*.{js,mjs,json,css,md}\""
   },
   "repository": {
     "type": "git",
@@ -20,8 +22,13 @@
   "homepage": "https://github.com/pawelgawron3/odin-weather-app#readme",
   "devDependencies": {
     "css-loader": "^7.1.2",
+    "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.4.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.4",
+    "prettier": "^3.6.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.101.3",
     "webpack-cli": "^6.0.1",
