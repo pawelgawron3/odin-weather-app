@@ -90,6 +90,79 @@ function displayData(json) {
   divCurrent.appendChild(uv);
 
   main.appendChild(divCurrent);
+
+  let h2Forecast = document.createElement("h2");
+  h2Forecast.classList.add("contentHeader");
+  h2Forecast.textContent = "Weather forecast:";
+
+  main.appendChild(h2Forecast);
+
+  let divForecast = document.createElement("div");
+  divForecast.classList.add("forecastDiv");
+
+  //weather.days[0] is currentConditions info
+  weather.days.slice(1).forEach((day) => {
+    let dayDiv = document.createElement("div");
+    dayDiv.classList.add("dayDiv");
+
+    let h3 = document.createElement("h3");
+    h3.classList.add("sectionHeader");
+    h3.textContent = day.datetime;
+
+    dayDiv.appendChild(h3);
+
+    let condDiv = document.createElement("div");
+    condDiv.classList.add("dayConditions");
+
+    let iconSpan = document.createElement("span");
+    iconSpan.classList.add("mdi", mapIconToMDI(iconSpan, day.icon));
+    iconSpan.style.fontSize = "2rem";
+    iconSpan.style.marginRight = "10px";
+
+    condDiv.appendChild(iconSpan);
+
+    let dayCondText = document.createElement("span");
+    dayCondText.classList.add("conditionText");
+    dayCondText.textContent = day.conditions;
+
+    condDiv.appendChild(dayCondText);
+
+    dayDiv.appendChild(condDiv);
+
+    let temp = document.createElement("p");
+    temp.textContent = `Temp: ${day.tempmin}° - ${day.tempmax}°\n(Feels like: ${day.feelslike}°)`;
+    temp.classList.add("temp", "forecastHover");
+
+    dayDiv.appendChild(temp);
+
+    let humidity = document.createElement("p");
+    humidity.textContent = `Humidity: ${day.humidity}%`;
+    humidity.classList.add("humidity", "forecastHover");
+
+    dayDiv.appendChild(humidity);
+
+    let wind = document.createElement("p");
+    wind.textContent = `Wind: ${day.windspeed} mph, Gusts: ${day.windgust} mph`;
+    wind.classList.add("wind", "forecastHover");
+
+    dayDiv.appendChild(wind);
+
+    let clouds = document.createElement("p");
+    clouds.textContent = `Cloud Cover: ${day.cloudcover}%`;
+    clouds.classList.add("cloudcover", "forecastHover");
+
+    dayDiv.appendChild(clouds);
+
+    let sun = document.createElement("p");
+    sun.textContent = `Sunrise: ${day.sunrise}, Sunset: ${day.sunset}`;
+    sun.classList.add("sun", "forecastHover");
+
+    dayDiv.appendChild(sun);
+
+    divForecast.appendChild(dayDiv);
+  });
+
+  main.appendChild(divForecast);
 }
 
 export { displayData };
