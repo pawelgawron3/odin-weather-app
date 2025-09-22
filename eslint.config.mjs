@@ -1,11 +1,9 @@
 import globals from "globals";
 import { defineConfig } from "eslint/config";
-import eslintRecommended from "eslint/conf/recommended";
 import prettierPlugin from "eslint-plugin-prettier";
 import prettierConfig from "eslint-config-prettier";
 
 export default defineConfig([
-  eslintRecommended,
   {
     files: ["**/*.{js,mjs,cjs}"],
     languageOptions: {
@@ -13,12 +11,10 @@ export default defineConfig([
       ecmaVersion: "latest",
       sourceType: "module",
     },
-    plugins: {
-      prettier: prettierPlugin,
-    },
+    plugins: { prettier: prettierPlugin },
     rules: {
       "prettier/prettier": "error",
     },
-    extends: [...prettierConfig],
   },
+  prettierConfig,
 ]);
