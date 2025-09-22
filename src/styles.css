@@ -125,7 +125,9 @@ main {
   background: linear-gradient(to bottom, #e0f7ff, #ffffff);
   padding: 2rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -155,6 +157,82 @@ main {
   font-size: 1.5rem;
 }
 
+/* CITY NAME + CURRENT CONDITIONS */
+.contentHeader {
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px black;
+  letter-spacing: 0.5px;
+}
+
+.currentConditions {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.currCondsHover:hover {
+  transform: translateX(-10px);
+}
+
+.sectionHeader {
+  font-size: 1.8rem;
+  color: #1e293b;
+  align-self: center;
+  font-weight: 600;
+}
+
+.conditions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  color: #1e293b;
+}
+
+.conditionText {
+  font-weight: 600;
+}
+
+.temp,
+.humidity,
+.wind,
+.pressure,
+.cloudcover,
+.sun,
+.uv {
+  font-size: 1.1rem;
+  color: #1e293b;
+  background: rgba(79, 172, 254, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(79, 172, 254, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.conditions .mdi {
+  color: #fff;
+}
+
 footer {
   width: 100%;
   height: 10vh;
@@ -163,4 +241,8 @@ footer {
   justify-content: center;
   align-items: center;
   background: linear-gradient(#00f2fe, #4facfe);
+}
+
+.mdi {
+  font-family: "Material Design Icons";
 }
