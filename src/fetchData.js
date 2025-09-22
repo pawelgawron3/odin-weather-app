@@ -1,7 +1,7 @@
 async function fetchData(city) {
   try {
     let response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&key=5XEGJQ5WGPPJ6RS5QPAYZEQM3&contentType=json`,
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&include=current%2Cdays&key=5XEGJQ5WGPPJ6RS5QPAYZEQM3&contentType=json`,
       {
         method: "GET",
       }
@@ -20,3 +20,5 @@ async function fetchData(city) {
 }
 
 export { fetchData };
+
+//`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&key=5XEGJQ5WGPPJ6RS5QPAYZEQM3&contentType=json`
