@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
 *,
 *::before,
 *::after {
@@ -8,5 +10,127 @@
   margin: 0;
 }
 body {
+  width: 100vw;
+  font-family: "Poppins", sans-serif;
   line-height: 1.5;
+}
+
+header {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 10px 10px;
+  background: linear-gradient(#4facfe, #00f2fe);
+}
+
+.logo {
+  position: relative;
+  font-size: 3rem;
+  letter-spacing: 1px;
+}
+
+.logo::before {
+  position: absolute;
+  right: -35px;
+  content: "\F05A8";
+  font-family: "Material Design Icons";
+  font-size: 2rem;
+  color: #facc15;
+  transition: transform 1.5s ease;
+}
+
+.logo::after {
+  position: absolute;
+  right: -60px;
+  top: 10px;
+  content: "\F0590";
+  font-family: "Material Design Icons";
+  font-size: 2rem;
+  color: #fff;
+  transition: transform 0.6s ease;
+}
+
+.logo:hover::before {
+  transform: rotate(360deg);
+}
+
+.logo:hover::after {
+  transform: translateX(-5px);
+}
+
+.search-box {
+  display: flex;
+  background: #fff;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 100%;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.search-box:focus-within {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 2rem;
+  color: #1e293b;
+}
+
+.search-box input::placeholder {
+  color: #94a3b8;
+}
+
+.search-box button {
+  border: none;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.search-box button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.search-box button span {
+  font-size: 1.2rem;
+}
+
+main {
+  width: 100%;
+  min-height: 70vh;
+  background: linear-gradient(to bottom, #e0f7ff, #ffffff);
+  padding: 2rem;
+}
+footer {
+  width: 100%;
+  height: 10vh;
+  padding: 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(#00f2fe, #4facfe);
 }
