@@ -1,4 +1,5 @@
 import { mapIconToMDI } from "./mapJsonToMdiIcons";
+import { convertTemp } from "./tempConverter";
 
 class Weather {
   constructor(address, currentConditions, days) {
@@ -10,7 +11,7 @@ class Weather {
 
 const main = document.querySelector("main");
 
-function displayData(json) {
+function displayData(json, tempBoolean) {
   main.innerHTML = "";
   let weather = new Weather(json.address, json.currentConditions, json.days);
 
@@ -48,7 +49,14 @@ function displayData(json) {
   divCurrent.appendChild(condDiv);
 
   let temp = document.createElement("p");
-  temp.textContent = `Temp: ${weather.currentConditions.temp}°F (Feels like: ${weather.currentConditions.feelslike}°F)`;
+  if (tempBoolean) {
+    let t = convertTemp(weather.currentConditions.temp);
+    let feels = convertTemp(weather.currentConditions.feelslike);
+    temp.textContent = `Temp: ${t} °C (Feels like: ${feels} °C)`;
+  } else {
+    temp.textContent = `Temp: ${weather.currentConditions.temp} °F (Feels like: ${weather.currentConditions.feelslike} °F)`;
+  }
+
   temp.classList.add("temp", "currCondsHover");
 
   divCurrent.appendChild(temp);
@@ -107,7 +115,14 @@ function displayData(json) {
 
     let h3 = document.createElement("h3");
     h3.classList.add("sectionHeader");
-    h3.textContent = day.datetime;
+    let dateObj = new Date(day.datetime);
+    h3.textContent = isNaN(dateObj.getTime())
+      ? day.datetime
+      : dateObj.toLocaleDateString(undefined, {
+          day: "numeric",
+          month: "numeric",
+          year: "numeric",
+        });
 
     dayDiv.appendChild(h3);
 
@@ -129,11 +144,19 @@ function displayData(json) {
 
     dayDiv.appendChild(condDiv);
 
-    let temp = document.createElement("p");
-    temp.textContent = `Temp: ${day.tempmin}° - ${day.tempmax}°\n(Feels like: ${day.feelslike}°)`;
-    temp.classList.add("temp", "forecastHover");
+    let tempDay = document.createElement("p");
+    if (tempBoolean) {
+      let minC = convertTemp(day.tempmin);
+      let maxC = convertTemp(day.tempmax);
+      let feelsC = convertTemp(day.feelslike);
+      tempDay.textContent = `Temp: ${minC} °C - ${maxC} °C\n(Feels like: ${feelsC} °C)`;
+    } else {
+      tempDay.textContent = `Temp: ${day.tempmin} °F - ${day.tempmax} °F\n(Feels like: ${day.feelslike} °F)`;
+    }
 
-    dayDiv.appendChild(temp);
+    tempDay.classList.add("temp", "forecastHover");
+
+    dayDiv.appendChild(tempDay);
 
     let humidity = document.createElement("p");
     humidity.textContent = `Humidity: ${day.humidity}%`;
