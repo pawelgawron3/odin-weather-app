@@ -20,5 +20,3 @@ async function fetchData(city) {
 }
 
 export { fetchData };
-
-//`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&key=5XEGJQ5WGPPJ6RS5QPAYZEQM3&contentType=json`
