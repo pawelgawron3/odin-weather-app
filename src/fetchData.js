@@ -9,7 +9,6 @@ async function fetchData(city) {
 
     if (response.ok) {
       let json = await response.json();
-      console.log(json);
       return json;
     } else {
       throw new Error("Response is not from range 2xx!");

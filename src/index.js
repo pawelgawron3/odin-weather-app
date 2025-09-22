@@ -1,6 +1,6 @@
 import "./styles.css";
 import { fetchData } from "./fetchData";
-import { handleEmptyInput } from "./handleEmptyInput";
+import { handleInputError } from "./handleInputError";
 import { displayData } from "./displayData";
 
 let temp = false; //false => Fahrenheit
@@ -18,9 +18,13 @@ searchBtn.addEventListener("click", async () => {
   let city = cityInput.value.trim();
   if (city !== "") {
     let json = await fetchData(city, temp);
-    displayData(json, temp);
+    if (json) {
+      displayData(json, temp);
+    } else {
+      handleInputError();
+    }
     cityInput.value = "";
   } else {
-    handleEmptyInput();
+    handleInputError();
   }
 });
