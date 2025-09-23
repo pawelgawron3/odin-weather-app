@@ -19,3 +19,6 @@ async function fetchData(city) {
 }
 
 export { fetchData };
+
+// Normally, API keys shouldn't be exposed in frontend code for security reasons,
+// but this one is a public key for a free API service, so it's safe to include.
