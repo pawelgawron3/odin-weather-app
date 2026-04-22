@@ -1,8 +1,11 @@
 export default async function fetchData(city) {
   try {
-    const response = await fetch(`http://localhost:3000/weather?city=${city}`, {
-      method: "GET",
-    });
+    const response = await fetch(
+      `https://weather-app-api-8xh1.onrender.com/weather?city=${city}`,
+      {
+        method: "GET",
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
