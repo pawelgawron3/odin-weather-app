@@ -17,7 +17,7 @@ tempToggle.addEventListener("click", () => {
 searchBtn.addEventListener("click", async () => {
   let city = cityInput.value.trim();
   if (city !== "") {
-    let json = await fetchData(city, temp);
+    let json = await fetchData(city);
     if (json) {
       displayData(json, temp);
     } else {
