@@ -28,3 +28,9 @@ searchBtn.addEventListener("click", async () => {
     handleInputError();
   }
 });
+
+cityInput.addEventListener("keydown", async (e) => {
+  if (e.key === "Enter") {
+    searchBtn.click();
+  }
+});
