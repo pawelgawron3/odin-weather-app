@@ -3,6 +3,7 @@ import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const API_KEY = process.env.WEATHER_API_KEY;
 
 app.use(cors());
 
@@ -14,7 +15,7 @@ app.get("/weather", async (req, res) => {
 
   try {
     const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&include=current%2Cdays&key=5XEGJQ5WGPPJ6RS5QPAYZEQM3&contentType=json`,
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&include=current%2Cdays&key=${API_KEY}&contentType=json`,
       {
         method: "GET",
       },
