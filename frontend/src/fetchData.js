@@ -8,9 +8,9 @@ export default async function fetchData(city) {
       const data = await response.json();
       return data;
     } else {
-      throw new Error("Response is not from range 2xx!");
+      return { error: "api" };
     }
   } catch (err) {
-    console.log(err);
+    return { error: "network" };
   }
 }
