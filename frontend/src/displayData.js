@@ -11,9 +11,9 @@ class Weather {
 
 const main = document.querySelector("main");
 
-function displayData(json, tempBoolean) {
+function displayData(data, tempBoolean) {
   main.innerHTML = "";
-  let weather = new Weather(json.address, json.currentConditions, json.days);
+  let weather = new Weather(data.address, data.currentConditions, data.days);
 
   let h2 = document.createElement("h2");
   h2.classList.add("contentHeader");
