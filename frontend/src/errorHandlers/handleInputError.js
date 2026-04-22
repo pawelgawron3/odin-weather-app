@@ -1,4 +1,4 @@
-function handleInputError() {
+export default function handleInputError() {
   const main = document.querySelector("main");
   main.innerHTML = "";
 
@@ -18,5 +18,3 @@ function handleInputError() {
 
   main.appendChild(div);
 }
-
-export { handleInputError };
