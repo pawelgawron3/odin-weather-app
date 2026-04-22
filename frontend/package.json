@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/pawelgawron3/odin-weather-app#readme",
   "devDependencies": {
+    "baseline-browser-mapping": "^2.10.20",
     "css-loader": "^7.1.2",
     "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.1.8",
