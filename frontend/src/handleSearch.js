@@ -1,4 +1,4 @@
-import { fetchData } from "./fetchData";
+import fetchData from "./fetchData";
 import { handleInputError } from "./handleInputError";
 import { displayData } from "./displayData";
 
@@ -10,10 +10,10 @@ export default async function handleSearch(temp, cityInput) {
     return;
   }
 
-  const json = await fetchData(city);
+  const data = await fetchData(city);
 
-  if (json) {
-    displayData(json, temp);
+  if (data) {
+    displayData(data, temp);
   } else {
     handleInputError();
   }

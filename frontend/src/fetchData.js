@@ -1,15 +1,12 @@
-async function fetchData(city) {
+export default async function fetchData(city) {
   try {
-    let response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&include=current%2Cdays&key=5XEGJQ5WGPPJ6RS5QPAYZEQM3&contentType=json`,
-      {
-        method: "GET",
-      }
-    );
+    const response = await fetch(`http://localhost:3000/weather?city=${city}`, {
+      method: "GET",
+    });
 
     if (response.ok) {
-      let json = await response.json();
-      return json;
+      const data = await response.json();
+      return data;
     } else {
       throw new Error("Response is not from range 2xx!");
     }
@@ -17,8 +14,3 @@ async function fetchData(city) {
     console.log(err);
   }
 }
-
-export { fetchData };
-
-// Normally, API keys shouldn't be exposed in frontend code for security reasons,
-// but this one is a public key for a free API service, so it's safe to include.
