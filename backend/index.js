@@ -26,11 +26,11 @@ app.get("/weather", async (req, res) => {
       return res.json(data);
     } else {
       return res.status(response.status).json({
-        error: "Failed to fetch weather data",
+        error: "api",
       });
     }
   } catch (err) {
-    return res.status(500).json({ error: "Server error!" });
+    return res.status(500).json({ error: "network" });
   }
 });
 
