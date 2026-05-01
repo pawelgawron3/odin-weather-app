@@ -2,7 +2,7 @@ import fetchData from "./fetchData";
 import handleInputError from "./errorHandlers/handleInputError";
 import handleNetworkError from "./errorHandlers/handleNetworkError";
 import { showLoader, hideLoader } from "./spinner";
-import { displayData } from "./displayData";
+import displayData from "./displayData";
 
 export default async function handleSearch(temp, cityInput) {
   let city = cityInput.value.trim();

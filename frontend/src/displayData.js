@@ -11,7 +11,7 @@ class Weather {
 
 const main = document.querySelector("main");
 
-function displayData(data, tempBoolean) {
+export default function displayData(data, tempBoolean) {
   main.innerHTML = "";
   let weather = new Weather(data.address, data.currentConditions, data.days);
 
@@ -187,5 +187,3 @@ function displayData(data, tempBoolean) {
 
   main.appendChild(divForecast);
 }
-
-export { displayData };
