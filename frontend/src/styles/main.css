@@ -1,0 +1,147 @@
+main {
+  width: 100%;
+  min-height: 70vh;
+  background: linear-gradient(to bottom, #e0f7ff, #ffffff);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #f87171, #ef4444);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.5);
+  font-size: 1.2rem;
+  animation: pulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.error-message .mdi {
+  font-size: 1.5rem;
+}
+
+/* CITY NAME + CURRENT CONDITIONS */
+.contentHeader {
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px black;
+  letter-spacing: 0.5px;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.currentConditions {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.currCondsHover:hover,
+.forecastHover:hover {
+  transform: translateX(-10px);
+}
+
+.sectionHeader {
+  font-size: 1.8rem;
+  color: #1e293b;
+  align-self: center;
+  font-weight: 600;
+}
+
+.conditions,
+.dayConditions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  color: #1e293b;
+}
+
+.conditionText {
+  font-weight: 600;
+}
+
+.temp,
+.humidity,
+.wind,
+.pressure,
+.cloudcover,
+.sun,
+.uv {
+  font-size: 1.1rem;
+  color: #1e293b;
+  background: rgba(79, 172, 254, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(79, 172, 254, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.temp {
+  white-space: pre-line;
+}
+
+/* WEATHER FORECAST */
+.forecastDiv {
+  max-width: 900px;
+  width: 100%;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(375px, 400px));
+  gap: 2.5rem;
+  justify-content: center;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.dayDiv {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem 2rem;
+  border-radius: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.dayDiv:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}

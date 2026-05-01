@@ -1,4 +1,8 @@
-import "./styles.css";
+import "./styles/reset.css";
+import "./styles/header.css";
+import "./styles/spinner.css";
+import "./styles/main.css";
+import "./styles/footer.css";
 import handleSearch from "./handleSearch";
 
 let temp = false; // false => Fahrenheit
