@@ -4,6 +4,7 @@ let emojiInterval;
 
 function showLoader() {
   const emojiEl = document.querySelector("#weatherEmoji");
+  loader.style.display = "flex";
   loader.classList.remove("hidden");
 
   let i = 0;
@@ -16,6 +17,10 @@ function showLoader() {
 function hideLoader() {
   loader.classList.add("hidden");
   clearInterval(emojiInterval);
+
+  setTimeout(() => {
+    loader.style.display = "none";
+  }, 300);
 }
 
 export { showLoader, hideLoader };
