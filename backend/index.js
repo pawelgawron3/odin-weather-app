@@ -5,7 +5,7 @@ import { createClient } from 'redis'
 const app = express();
 const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.WEATHER_API_KEY;
-console.log(API_KEY)
+const MAX_CONNECTIONS = 10
 app.use(cors());
 
 const client = createClient({
@@ -23,6 +23,12 @@ app.get("/weather", async (req, res) => {
   if (!city) return res.status(400).json({ error: "City is required!" });
 
   const cacheKey = `weather:${city.toLowerCase().trim()}`;
+  const ip = req.ip;
+  const rateKey = `rate:${ip}`;
+  const count = await client.incr(rateKey);
+  if (count == 1) await client.expire(rateKey, 60);
+  if (count > MAX_CONNECTIONS) return res.status(429).send("Too many requests");
+
   try {
     {
       const cachedWeather = await client.get(cacheKey)
