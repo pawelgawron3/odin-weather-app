@@ -58,3 +58,8 @@ app.get("/weather", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+process.on("SIGINT", async () => {
+  await client.quit()
+  process.exit()
+})
