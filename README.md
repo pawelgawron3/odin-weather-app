@@ -109,6 +109,12 @@ The application includes a user-friendly interface with unit conversion (Celsius
 
 ---
 
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
 ## 🌐 Live Demo
 
 _Live version is available in the **About section of this repository** 👉 Netlify deployment link_
