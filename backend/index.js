@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { createClient } from "redis";
+import { Redis as UpstashRedis } from "@upstash/redis";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,13 +10,37 @@ const MAX_CONNECTIONS = 10;
 
 app.use(cors());
 
-const client = createClient({
-  url: "redis://redis:6379",
-});
+let redisClient;
+let isUpstash = false;
 
-client.on("error", (err) => console.log("Redis Client Error", err));
-client.on("connect", () => console.log("🟢 Redis CONNECTED"));
-await client.connect();
+if (process.env.UPSTASH_REDIS_REST_URL) {
+  isUpstash = true;
+  redisClient = new UpstashRedis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+  });
+  console.log("🚀 Running with Upstash Redis (Production)");
+} else {
+  redisClient = createClient({ url: "redis://redis:6379" });
+  redisClient.on("error", (err) => console.log("Redis Client Error", err));
+  await redisClient.connect();
+  console.log("🟢 Running with Local Docker Redis");
+}
+
+const redis = {
+  get: async (key) =>
+    isUpstash ? await redisClient.get(key) : await redisClient.get(key),
+  set: async (key, val, options) =>
+    isUpstash
+      ? await redisClient.set(key, val, { ex: options.EX })
+      : await redisClient.set(key, val, options),
+  incr: async (key) =>
+    isUpstash ? await redisClient.incr(key) : await redisClient.incr(key),
+  expire: async (key, seconds) =>
+    isUpstash
+      ? await redisClient.expire(key, seconds)
+      : await redisClient.expire(key, seconds),
+};
 
 // GET /weather?city=xxx
 app.get("/weather", async (req, res) => {
@@ -24,15 +49,19 @@ app.get("/weather", async (req, res) => {
 
   const ip = req.ip;
   const rateKey = `rate:${ip}`;
-  const count = await client.incr(rateKey);
-  if (count == 1) await client.expire(rateKey, 60);
+  const count = await redis.incr(rateKey);
+  if (count == 1) await redis.expire(rateKey, 60);
   if (count > MAX_CONNECTIONS) return res.status(429).send("Too many requests");
 
   const cacheKey = `weather:${city.toLowerCase().trim()}`;
   try {
-    const cachedWeather = await client.get(cacheKey);
+    const cachedWeather = await redis.get(cacheKey);
     if (cachedWeather) {
-      return res.json(JSON.parse(cachedWeather));
+      return res.json(
+        typeof cachedWeather === "string"
+          ? JSON.parse(cachedWeather)
+          : cachedWeather,
+      );
     }
 
     const response = await fetch(
@@ -45,8 +74,8 @@ app.get("/weather", async (req, res) => {
     if (response.ok) {
       const data = await response.json();
 
-      await client.set(cacheKey, JSON.stringify(data), {
-        EX: 60 * 60, // 1h
+      await redis.set(cacheKey, JSON.stringify(data), {
+        EX: 3600, // 1h
       });
 
       return res.json(data);
@@ -66,6 +95,6 @@ app.listen(PORT, () => {
 });
 
 process.on("SIGINT", async () => {
-  await client.quit();
+  if (!isUpstash) await redisClient.quit();
   process.exit();
 });
