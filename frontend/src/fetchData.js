@@ -1,11 +1,10 @@
 export default async function fetchData(city) {
+  const API_URL = process.env.API_URL || `http://localhost:3000`;
+
   try {
-    const response = await fetch(
-      `http://localhost:3000/weather?city=${city}`,
-      {
-        method: "GET",
-      }
-    );
+    const response = await fetch(`${API_URL}/weather?city=${city}`, {
+      method: "GET",
+    });
 
     if (response.ok) {
       const data = await response.json();
