@@ -15,6 +15,5 @@ export default function handleInputError() {
   text.textContent = "Please enter a correct city name!";
 
   div.appendChild(text);
-
   main.appendChild(div);
 }

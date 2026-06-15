@@ -15,6 +15,5 @@ export default function handleNetworkError() {
   text.textContent = "Server is unavailable. Please try again later.";
 
   div.appendChild(text);
-
   main.appendChild(div);
 }
