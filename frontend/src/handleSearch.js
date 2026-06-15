@@ -1,6 +1,7 @@
 import fetchData from "./fetchData";
 import handleInputError from "./errorHandlers/handleInputError";
 import handleNetworkError from "./errorHandlers/handleNetworkError";
+import handleRateLimitError from "./errorHandlers/handleRateLimitError";
 import { showLoader, hideLoader } from "./spinner";
 import displayData from "./displayData";
 
@@ -19,6 +20,8 @@ export default async function handleSearch(temp, cityInput) {
     handleNetworkError();
   } else if (data?.error === "api") {
     handleInputError();
+  } else if (data?.error === "rate_limit") {
+    handleRateLimitError();
   } else {
     displayData(data, temp);
   }

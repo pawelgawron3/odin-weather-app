@@ -9,6 +9,8 @@ export default async function fetchData(city) {
     if (response.ok) {
       const data = await response.json();
       return data;
+    } else if (response.status === 429) {
+      return { error: "rate_limit" };
     } else {
       return { error: "api" };
     }
