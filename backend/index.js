@@ -28,18 +28,16 @@ if (process.env.UPSTASH_REDIS_REST_URL) {
 }
 
 const redis = {
-  get: async (key) =>
-    isUpstash ? await redisClient.get(key) : await redisClient.get(key),
-  set: async (key, val, options) =>
-    isUpstash
-      ? await redisClient.set(key, val, { ex: options.EX })
-      : await redisClient.set(key, val, options),
-  incr: async (key) =>
-    isUpstash ? await redisClient.incr(key) : await redisClient.incr(key),
-  expire: async (key, seconds) =>
-    isUpstash
-      ? await redisClient.expire(key, seconds)
-      : await redisClient.expire(key, seconds),
+  get: async (key) => await redisClient.get(key),
+  // Upstash needs { ex: ... }, node-redis needs {EX: ... }
+  set: async (key, val, options) => {
+    const ttl = options?.ex || options?.EX;
+    return isUpstash
+      ? await redisClient.set(key, val, { ex: ttl })
+      : await redisClient.set(key, val, { EX: ttl });
+  },
+  incr: async (key) => await redisClient.incr(key),
+  expire: async (key, seconds) => await redisClient.expire(key, seconds),
 };
 
 // GET /weather?city=xxx
