@@ -52,12 +52,18 @@ The application includes a user-friendly interface with unit conversion (Celsius
 - Backend-for-Frontend (BFF) / middleware layer
 - Secure API key management using environment variables (Render)
 - CORS enabled for secure cross-origin communication
-- Planned: rate limiting for request control
+- Rate limiting for request control
+- Caching layer (external API calls reduced and performance improved)
+
+### 🐳 Docker & Containerization
+
+- Full containerization: Automated setup with `docker-compose` for local development
+- Environment isolation: Frontend and backend run in separate containers, communicating via internal Docker networking
+- Consistent environment: Same runtime environment for development and production testing
 
 ### 🚀 Planned improvements
 
 - Full mobile responsiveness (currently optimized for desktop/laptops)
-- Redis caching layer to reduce external API calls and improve performance
 - Enhanced performance optimizations and scalability improvements
 
 ---
@@ -90,26 +96,40 @@ The application includes a user-friendly interface with unit conversion (Celsius
 - Express.js
 - Visual Crossing Weather API
 - CORS middleware
+- Redis
 
 ### Deployment
 
 - Frontend: Netlify
 - Backend: Render
+- Redis: Upstash
 
 ### Dev Tools
 
 - Git & GitHub (VCS / monorepo)
+- Docker (containerization)
 
 ---
 
-## 🔐 Security Notes
+## 🔐 Security & Deployment Notes
 
-- API key is stored as environment variable (not exposed in source code)
-- Backend acts as a secure proxy between frontend and external API
+- **Secret Management:** API key and sensitive credentials (including Upstash Redis connection strings) are stored as environment variables. They are never exposed in the source code.
+- **Secure Proxying:** The backend acts as a secure intermediary (BFF pattern), shielding the frontend from direct exposure to external API credentials.
+- **Environment-Specific Configuration:**
+  - **Local Development:** Uses local `.env` file and Docker environment injection.
+  - **Production Deployment:** Securely utilizes platform-native environment variable management:
+    - **Netlify:** Manages frontend-related environment configuration.
+    - **Render:** Manages backend and database (Upstash Redis) integration.
 
 ---
 
-## License
+## 🤝 Acknowledgments
+
+Special thanks to [pkrzysiekk](https://github.com/pkrzysiekk) for his contribution to the project. He implemented the **Docker containerization** strategy, and integrated **Redis caching** and **rate limiting** to significantly improve performance and API reliability.
+
+---
+
+## ⚖️ License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
